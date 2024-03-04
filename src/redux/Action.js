@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_POST, DELETE_POST, GET_POST, LOGIN, SIGN_UP } from "./ActionType";
+import { ADD_POST, DELETE_POST, GET_POST, LOGIN, SIGN_UP, UPDATE_POST } from "./ActionType";
 
 export const sign_up=(data)=>async(dispatch)=>{
     let user=await axios.post("http://localhost:3100/users",data);
@@ -36,10 +36,19 @@ export const get_post=()=>async(dispatch)=>{
 }
 
 export const delete_post=(id)=>async(dispatch)=>{
-    let del=await axios.get(`http://localhost:3100/posts/${id}`)
+    let del=await axios.delete(`http://localhost:3100/posts/${id}`)
 
     dispatch({
         type:DELETE_POST,
+        payload:id
+    })
+}
+
+export const update_post=(id)=>async(dispatch)=>{
+    let up=await axios.put(`http://localhost:3100/posts/${id}`)
+
+    dispatch({
+        type:UPDATE_POST,
         payload:id
     })
 }
